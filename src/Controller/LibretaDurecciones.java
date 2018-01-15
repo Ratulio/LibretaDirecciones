@@ -6,11 +6,14 @@ package Controller;
  * and open the template in the editor.
  */
 
+import Model.Persona;
 import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import view.VistaPersonaController;
 
 /**
  *
@@ -28,9 +32,24 @@ import javafx.stage.Stage;
  */
 public class LibretaDurecciones extends Application {
     
+     private ObservableList datosPersona = FXCollections.observableArrayList();
      private Stage escenarioPrincipal;
      private BorderPane layoutPrincipal;
      private AnchorPane vistaPersona;
+     
+     
+     public LibretaDurecciones(){
+         datosPersona.add(new Persona("Pablo", "Perez Estevan"));
+         datosPersona.add(new Persona("Pablo", "Prieto Gutierrez"));
+         datosPersona.add(new Persona("Alex", "Daniel Tomsa"));
+         datosPersona.add(new Persona("Daniel", "Zamarreño Avendaño"));
+         datosPersona.add(new Persona("Mauricio", "Sanchez Moreno"));
+         
+     }
+     
+     public ObservableList getDatosPersona(){
+         return datosPersona;
+     }
     
     @Override
     public void start(Stage escenarioPrincipal) {
@@ -85,6 +104,9 @@ public class LibretaDurecciones extends Application {
         //Añado la vista al centro del layoutPrincipal
         layoutPrincipal.setCenter(vistaPersona);
         
+        VistaPersonaController controller = loader.getController();
+        controller.setLibretaDirecciones(this);
+               
     }
     
     //Invoco el método getPrimaryStage para que devuelva mi escenario principal
